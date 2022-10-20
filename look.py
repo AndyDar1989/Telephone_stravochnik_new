@@ -29,6 +29,7 @@ def look():  # поиск по данным
                     print(f'{text_txt[i - 1]}{text_txt[i]}{text_txt[i + 1]}{text_txt[i + 2]}{text_txt[i + 3]}\n')
                     count = True
             if not count: print('Таких данных нет в справочнике фаила Phonebook.txt')
+            return search
 
 
 def delete_contact():
@@ -41,3 +42,4 @@ def delete_contact():
             for i in range(len(contact)):
                 if i != del_key:
                     data.write(contact[i])
+    return del_key
