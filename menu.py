@@ -67,4 +67,4 @@ def input_contact_menu_choice():
             return input_contact_menu_choice()
 
 
-print(input_contact_menu_choice())
+input_contact_menu_choice()
