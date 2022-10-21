@@ -1,5 +1,5 @@
 from os import path
-from exceptions import data_search, user_choice
+from exceptions import data_search, user_choice, key_choice
 
 
 def look():  # поиск по данным
@@ -33,13 +33,34 @@ def look():  # поиск по данным
 
 
 def delete_contact():
-    look()
-    print('Введите номер записи, которую хотите удалить:\n')
-    del_key = user_choice()
+    name = look()
+    print('Введите номер записи, которую хотите удалить:')
+    del_key = str(key_choice())
     with open('Phonebook.csv', 'r', encoding='utf-8') as data:
         contact = data.readlines()
         with open('Phonebook.csv', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
-                if i != del_key:
+                if del_key and name not in contact[i]:
                     data.write(contact[i])
     return del_key
+
+
+def delete_contact_txt():
+    look()
+    print('Введите номер записи, которую хотите удалить: ')
+    del_key = str(key_choice())
+    del_contact = f'№ {del_key}'
+    with open('Phonebook.txt', 'r', encoding='utf-8') as data:
+        contact = data.readlines()
+        del_indexes=[]
+        for i in range(len(contact)):
+            if del_contact in contact[i]:
+                del_indexes = [i,i+1,i+2,i+3,i+4]
+                break
+        with open('Phonebook copy.txt', 'w', encoding='utf-8') as data:
+            for i in range(len(contact)):
+                if i not in del_indexes:
+                    data.write(contact[i])
+    return del_key
+                
+                  
