@@ -1,6 +1,6 @@
 from os import path
-from exceptions import data_search, user_choice, key_choice
-from add_info import adding
+from exceptions import data_search, key_choice
+
 
 
 def look():  # поиск по данным
@@ -37,20 +37,14 @@ def delete_contact():
     name = look()
     print('Введите номер записи, которую хотите удалить:')
     del_key = str(key_choice())
+    del_contact = f'№ {del_key}'
     with open('Phonebook.csv', 'r', encoding='utf-8') as data:
         contact = data.readlines()
         with open('Phonebook.csv', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
                 if del_key and name not in contact[i]:
                     data.write(contact[i])
-    return del_key
-
-
-def delete_contact_txt():
-    look()
-    print('Введите номер записи, которую хотите удалить: ')
-    del_key = str(key_choice())
-    del_contact = f'№ {del_key}'
+    
     with open('Phonebook.txt', 'r', encoding='utf-8') as data:
         contact = data.readlines()
         del_indexes=[]
@@ -58,21 +52,21 @@ def delete_contact_txt():
             if del_contact in contact[i]:
                 del_indexes = [i,i+1,i+2,i+3,i+4]
                 break
-        with open('Phonebook copy.txt', 'w', encoding='utf-8') as data:
+        with open('Phonebook.txt', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
                 if i not in del_indexes:
                     data.write(contact[i])
     return del_key
 
-def change_txt():
-    look()
+def change_contact():
+    name = look()
     print('Введите номер записи, которую хотите изменить: ')
     change_key = str(key_choice())
     change_pos = input('Какой пункт вы хотите изменить? ')
     new_data = input('Введите новые данные:  ')
     with open('Phonebook.txt', 'r', encoding='utf-8') as data:
         contact = data.readlines()
-        with open('Phonebook copy.txt', 'w', encoding='utf-8') as data:
+        with open('Phonebook.txt', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
                 if change_key in contact[i]:
                     if change_pos=='Фамилия':
@@ -85,20 +79,25 @@ def change_txt():
                         contact[i+4] = f'Описание: {new_data}\n'            
                 data.write(contact[i])
                 
-change_txt()   
-
-
-def change_contact():
-    name = look()
-    print('Введите номер записи, которую хотите изменить:')
-    change_key = str(key_choice())
     with open('Phonebook.csv', 'r', encoding='utf-8') as data:
         contact = data.readlines()
         with open('Phonebook.csv', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
-                if change_key and name in contact[i]:
-                    contact[i]=adding()
+                if f'{change_key},{name}' in contact[i]:
+                    new_contact = contact[i].split(',')
+                    if change_pos=='Фамилия':
+                        new_contact[1] = new_data
+                    elif change_pos=='Имя':
+                        new_contact[2] = new_data
+                    elif change_pos=='Номер телефона':
+                        new_contact[3] = new_data
+                    elif change_pos=='Описание':
+                        new_contact[4] = f'{new_data}\n'
+                    contact[i] = ','.join(new_contact)         
                 data.write(contact[i])
+    return change_key            
+
+               
     
 
 
