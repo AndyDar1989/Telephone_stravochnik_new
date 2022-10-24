@@ -62,13 +62,14 @@ def change_contact():
     name = look()
     print('Введите номер записи, которую хотите изменить: ')
     change_key = str(key_choice())
+    change_contact = f'№ {change_key}'
     change_pos = input('Какой пункт вы хотите изменить? ')
     new_data = input('Введите новые данные:  ')
     with open('Phonebook.txt', 'r', encoding='utf-8') as data:
         contact = data.readlines()
         with open('Phonebook.txt', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
-                if change_key in contact[i]:
+                if change_contact in contact[i]:
                     if change_pos=='Фамилия':
                         contact[i+1] = f'Фамилия: {new_data}\n'
                     elif change_pos=='Имя':
@@ -76,7 +77,7 @@ def change_contact():
                     elif change_pos=='Номер телефона':
                         contact[i+3] = f'Номер телефона: {new_data}\n'
                     elif change_pos=='Описание':
-                        contact[i+4] = f'Описание: {new_data}\n'            
+                        contact[i+4] = f'Описание: {new_data}\n'               
                 data.write(contact[i])
                 
     with open('Phonebook.csv', 'r', encoding='utf-8') as data:
