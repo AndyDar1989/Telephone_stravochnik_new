@@ -3,12 +3,14 @@ from file_writing import last_key
 
 
 def user_choice():
+   choice1 = input('Выберите пункт меню: ')
     try:
-        choice1 = int(input('Выберите пункт меню: '))
+        choice1  = int(choice1)
+        return choice1 
     except ValueError:
         print('Ошибка ввода')
         error_enter()
-    return choice1
+        return user_choice()
 
 def data_search():
     try:
