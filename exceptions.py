@@ -17,6 +17,7 @@ def data_search():
     try:
         if user_search =='' or user_search.isdigit():
             print('Ошибка ввода')
+            error_enter()
             return data_search()
         else:
             return user_search    
