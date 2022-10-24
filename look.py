@@ -42,7 +42,7 @@ def delete_contact():
         contact = data.readlines()
         with open('Phonebook.csv', 'w', encoding='utf-8') as data:
             for i in range(len(contact)):
-                if del_key and name not in contact[i]:
+                if f'{change_key},{name}' not in contact[i]:
                     data.write(contact[i])
     
     with open('Phonebook.txt', 'r', encoding='utf-8') as data:
