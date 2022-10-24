@@ -13,17 +13,24 @@ def user_choice():
         return user_choice()
 
 def data_search():
+    user_search = input('Введите фамилию: ')
     try:
-        search = input('Введите данные для поиска контакта: ')
+        if user_search =='' or user_search.isdigit():
+            print('Ошибка ввода')
+            return data_search()
+        else:
+            return user_search    
     except ValueError:
         print('Ошибка ввода')
         error_enter()
-    return search
+        return data_search()
 
 def key_choice():
+    my_choice = input()
     try:
-        my_choice = int(input())
+        my_choice = int(my_choice)
+        return my_choice
     except ValueError:
         print('Ошибка ввода')
         error_enter()
-    return my_choice
+        return  key_choice()
